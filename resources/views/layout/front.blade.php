@@ -24,11 +24,13 @@
     <meta name="author" content="Nagaldham Farm">
     <!-- Favicon-->
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     @yield('styles')
-    
-</script>
-
 </head>
 
 <body>
@@ -36,8 +38,8 @@
     @yield('content')
     @include('partials.front.footer')
     
-    <!-- Template custom -->
-    <script src="{{ asset('assets/js/script.js') }}"></script>
+    <!-- Main JS -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
     
     @yield('scripts')
      

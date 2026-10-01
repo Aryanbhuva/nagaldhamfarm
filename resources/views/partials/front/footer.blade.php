@@ -58,7 +58,7 @@
                 <h3 class="footer-col-title">Quick Links</h3>
                 <ul class="footer-nav-list">
                     <li><a href="{{ url('/') }}" class="footer-link">Home</a></li>
-                    <li><a href="{{ url('/#products') }}" class="footer-link">Products</a></li>
+                    <li><a href="{{ route('product') }}" class="footer-link">Products</a></li>
                     <li><a href="{{ url('/#about') }}" class="footer-link">About Us</a></li>
                     <li><a href="{{ url('/#process') }}" class="footer-link">Our Farm</a></li>
                     <li><a href="{{ url('/#blog') }}" class="footer-link">Blog</a></li>
@@ -70,12 +70,12 @@
             <div class="footer-col footer-col-links">
                 <h3 class="footer-col-title">Our Products</h3>
                 <ul class="footer-nav-list">
-                    <li><a href="{{ url('/#products') }}" class="footer-link">Gir Cow Ghee</a></li>
-                    <li><a href="{{ url('/#products') }}" class="footer-link">Traditional Sweets</a></li>
-                    <li><a href="{{ url('/#products') }}" class="footer-link">Colostrum Powder</a></li>
-                    <li><a href="{{ url('/#products') }}" class="footer-link">Cow Dung Products</a></li>
-                    <li><a href="{{ url('/#products') }}" class="footer-link">Combo Packages</a></li>
-                    <li><a href="{{ url('/#products') }}" class="footer-link">All Products</a></li>
+                    <li><a href="{{ route('product') }}" class="footer-link">Gir Cow Ghee</a></li>
+                    <li><a href="{{ route('product') }}" class="footer-link">Traditional Sweets</a></li>
+                    <li><a href="{{ route('product') }}" class="footer-link">Colostrum Powder</a></li>
+                    <li><a href="{{ route('product') }}" class="footer-link">Cow Dung Products</a></li>
+                    <li><a href="{{ route('product') }}" class="footer-link">Combo Packages</a></li>
+                    <li><a href="{{ route('product') }}" class="footer-link">All Products</a></li>
                 </ul>
             </div>
 

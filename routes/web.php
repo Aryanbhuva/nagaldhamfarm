@@ -15,3 +15,4 @@ use App\Http\Controllers\Front\PageController;
 */
 
 Route::get('/',[PageController::class,'home'])->name('home');
+Route::get('/products',[PageController::class,'product'])->name('product');

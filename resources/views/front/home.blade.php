@@ -181,82 +181,30 @@
                 </p>
             </div>
 
-            <!-- Products Grid (4 Category Cards) -->
-            <div class="products-grid">
-                <!-- Product 1: Gir Cow Ghee -->
-                <div class="product-card">
-                    <div class="product-img-box">
-                        <img src="{{ asset('assets/img/product-ghee.jpg') }}" alt="Gir Cow Ghee - Pure A2 Vedic Ghee" width="300" height="300" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Gir Cow Ghee</h3>
-                        <p class="product-desc">Pure, aromatic and full of natural nutrition.</p>
-                        <a href="#products" class="btn-product-action">
-                            <span>View Products</span>
-                            <span class="btn-arrow" aria-hidden="true">
-                                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H14.5M14.5 6L9.5 1M14.5 6L9.5 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 2: Traditional Sweets -->
-                <div class="product-card">
-                    <div class="product-img-box">
-                        <img src="{{ asset('assets/img/product-sweets.jpg') }}" alt="Traditional Sweets - Pure Ghee Sweets" width="300" height="300" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Traditional Sweets</h3>
-                        <p class="product-desc">Made with pure ghee and natural ingredients.</p>
-                        <a href="#products" class="btn-product-action">
-                            <span>View Products</span>
-                            <span class="btn-arrow" aria-hidden="true">
-                                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H14.5M14.5 6L9.5 1M14.5 6L9.5 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 3: Colostrum Powder -->
-                <div class="product-card">
-                    <div class="product-img-box">
-                        <img src="{{ asset('assets/img/product-colostrum.jpg') }}" alt="Colostrum Powder - Immunity and Nutrition" width="300" height="300" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Colostrum Powder</h3>
-                        <p class="product-desc">Rich in immunity and essential nutrients.</p>
-                        <a href="#products" class="btn-product-action">
-                            <span>View Products</span>
-                            <span class="btn-arrow" aria-hidden="true">
-                                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H14.5M14.5 6L9.5 1M14.5 6L9.5 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Product 4: Cow Dung Products -->
-                <div class="product-card">
-                    <div class="product-img-box">
-                        <img src="{{ asset('assets/img/product-cow-dung.jpg') }}" alt="Cow Dung Products - Natural and Eco-Friendly" width="300" height="300" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Cow Dung Products</h3>
-                        <p class="product-desc">Natural, eco-friendly and multipurpose.</p>
-                        <a href="#products" class="btn-product-action">
-                            <span>View Products</span>
-                            <span class="btn-arrow" aria-hidden="true">
-                                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H14.5M14.5 6L9.5 1M14.5 6L9.5 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
+            <!-- Products Slider Wrapper -->
+            <div class="products-slider-wrapper" style="overflow: hidden; width: 100%;">
+                <div class="products-grid" id="productsSlider" style="display: flex; flex-wrap: nowrap; transition: transform 0.5s ease; gap: clamp(1.15rem, 1.8vw, 1.75rem);">
+                    @foreach($products as $category => $items)
+                        @foreach($items as $item)
+                        <div class="product-card" style="flex: 0 0 auto; width: calc(25% - 1.35rem); min-width: 260px;">
+                            <div class="product-img-box">
+                                <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" width="300" height="300" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">{{ $item['name'] }}</h3>
+                                <p class="product-desc">{{ $item['description'] }}</p>
+                                <a href="#" class="btn-product-action btn-view-more" data-name="{{ $item['name'] }}" data-image="{{ asset($item['image']) }}" data-desc="{{ $item['description'] }}" data-long-desc="{{ $item['long_description'] ?? '' }}">
+                                    <span>View Products</span>
+                                    <span class="btn-arrow" aria-hidden="true">
+                                        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 6H14.5M14.5 6L9.5 1M14.5 6L9.5 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        @endforeach
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -748,5 +696,44 @@
             </div>
         </div>
     </section>
+
+    @include('partials.front.product_modal')
 </main>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('productsSlider');
+    if (slider) {
+        let scrollInterval;
+        
+        function startAutoScroll() {
+            scrollInterval = setInterval(() => {
+                const card = slider.querySelector('.product-card');
+                if (card) {
+                    const gapStyle = window.getComputedStyle(slider).gap;
+                    const gap = gapStyle !== 'normal' ? parseFloat(gapStyle) : 24; // Default to ~24px if not parsable
+                    const cardWidth = card.offsetWidth + gap;
+                    
+                    slider.style.transition = 'transform 0.5s ease';
+                    slider.style.transform = `translateX(-${cardWidth}px)`;
+                    
+                    setTimeout(() => {
+                        slider.style.transition = 'none';
+                        slider.appendChild(slider.firstElementChild);
+                        slider.style.transform = 'translateX(0)';
+                    }, 500);
+                }
+            }, 2000); // 2 seconds
+        }
+
+        startAutoScroll();
+
+        // Pause auto-scroll when hovering over the slider
+        slider.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+        slider.addEventListener('mouseleave', startAutoScroll);
+    }
+});
+</script>
 @endsection

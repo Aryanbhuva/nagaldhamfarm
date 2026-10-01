@@ -21,7 +21,7 @@
                     <a href="{{ url('/') }}" class="nav-link active">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('/#products') }}" class="nav-link">Products</a>
+                    <a href="{{ route('product') }}" class="nav-link">Products</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/#about') }}" class="nav-link">About Us</a>
@@ -85,7 +85,7 @@
         <nav class="mobile-nav-body" aria-label="Mobile Navigation">
             <ul class="mobile-nav-list">
                 <li><a href="{{ url('/') }}" class="mobile-nav-link active">Home</a></li>
-                <li><a href="{{ url('/#products') }}" class="mobile-nav-link">Products</a></li>
+                <li><a href="{{ route('product') }}" class="mobile-nav-link">Products</a></li>
                 <li><a href="{{ url('/#about') }}" class="mobile-nav-link">About Us</a></li>
                 <li><a href="{{ url('/#process') }}" class="mobile-nav-link">Our Farm</a></li>
                 <li><a href="{{ url('/#blog') }}" class="mobile-nav-link">Blog</a></li>

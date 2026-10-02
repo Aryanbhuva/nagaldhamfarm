@@ -41,6 +41,16 @@
     @yield('content')
     @include('partials.front.footer')
     
+    <!-- Sticky Action Buttons -->
+    <div class="sticky-actions-container">
+        <a href="tel:{{ config('settings.contact_tel') }}" class="sticky-btn sticky-call-btn" aria-label="Call Us">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+        <a href="https://wa.me/{{ config('settings.whatsapp_wa') }}" target="_blank" class="sticky-btn sticky-wa-btn" aria-label="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
     

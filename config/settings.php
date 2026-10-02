@@ -3,10 +3,13 @@ return [
     'contact'=>'+91 99257 90544',
     'contact_tel' => '+919925790544',
 
+    'phone'=>'+91 78781 89998',
+    'phone_tel'=>'+917878189998',
+
     'whatsapp'=>'+91 99257 90544',
     'whatsapp_wa'=>'919925790544',
 
-    'email'=>'bhuvaaryan6@mail.com',
+    'email'=>'nagaldhamgaushala@gmail.com',
 
     'address'=> 'Moniya, Visavadar, Dist. Junagadh, Gujarat, India - 362120',
     'addres_link'=>'https://maps.app.goo.gl/BRQ4DMqNupNr4TpT9',

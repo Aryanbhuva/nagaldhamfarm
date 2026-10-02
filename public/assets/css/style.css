@@ -3597,7 +3597,88 @@ a {
     }
 }
 
+/* ==========================================================================
+   Sticky Action Buttons
+   ========================================================================== */
+.sticky-actions-container {
+    position: fixed;
+    right: 25px;
+    bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999;
+}
 
+.sticky-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: #fff !important;
+    font-size: 26px;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    position: relative;
+}
 
+.sticky-btn:hover {
+    transform: translateY(-5px) scale(1.08);
+}
 
+.sticky-btn i {
+    transition: transform 0.3s ease;
+}
 
+.sticky-btn:hover i {
+    transform: scale(1.15);
+}
+
+.sticky-call-btn {
+    background: linear-gradient(135deg, #a66a38 0%, #7d481f 100%);
+    box-shadow: 0 4px 14px rgba(125, 72, 31, 0.4);
+}
+
+.sticky-call-btn:hover {
+    box-shadow: 0 8px 24px rgba(125, 72, 31, 0.6);
+}
+
+.sticky-wa-btn {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+    animation: pulse-wa 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+.sticky-wa-btn:hover {
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6);
+    animation: none;
+}
+
+@keyframes pulse-wa {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* Responsive Sticky Buttons */
+@media (max-width: 768px) {
+    .sticky-actions-container {
+        right: 15px;
+        bottom: 25px;
+        gap: 12px;
+    }
+    
+    .sticky-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+}

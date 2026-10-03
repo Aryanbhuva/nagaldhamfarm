@@ -3682,3 +3682,72 @@ a {
         font-size: 22px;
     }
 }
+
+/* Custom styles replacing inline styles */
+.custom-marquee-padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.custom-product-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 1rem;
+}
+.custom-btn-view-more {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #8C5323;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    box-shadow: none;
+}
+.custom-btn-view-more .btn-arrow {
+    display: flex;
+    align-items: center;
+}
+.custom-btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+.custom-btn-action:hover {
+    transform: scale(1.05);
+}
+.custom-btn-call {
+    background-color: #EEDCC6;
+    color: #6E441B;
+    font-size: 1.1rem;
+}
+.custom-btn-wa {
+    background-color: #275630;
+    color: white;
+    font-size: 1.3rem;
+}
+
+/* Reduce section gaps globally for home page */
+.products-section,
+.why-choose-section,
+.process-section,
+.about-section,
+.testimonials-section,
+.blog-section,
+.cta-section {
+    padding-top: clamp(2rem, 3vw, 2.5rem) !important;
+    padding-bottom: clamp(2rem, 3vw, 2.5rem) !important;
+}
+

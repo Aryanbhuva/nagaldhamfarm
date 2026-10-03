@@ -18,10 +18,10 @@
         <nav class="header-nav" id="desktopNav" aria-label="Main Navigation">
             <ul class="header-nav-list">
                 <li class="nav-item">
-                    <a href="{{ url('/') }}" class="nav-link active">Home</a>
+                    <a href="{{ url('/') }}" class="nav-link {{ request()->routeIs('home') || request()->is('/') ? 'active' : '' }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('product') }}" class="nav-link">Products</a>
+                    <a href="{{ route('product') }}" class="nav-link {{ request()->routeIs('product') ? 'active' : '' }}">Products</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/#about') }}" class="nav-link">About Us</a>
@@ -84,8 +84,8 @@
 
         <nav class="mobile-nav-body" aria-label="Mobile Navigation">
             <ul class="mobile-nav-list">
-                <li><a href="{{ url('/') }}" class="mobile-nav-link active">Home</a></li>
-                <li><a href="{{ route('product') }}" class="mobile-nav-link">Products</a></li>
+                <li><a href="{{ url('/') }}" class="mobile-nav-link {{ request()->routeIs('home') || request()->is('/') ? 'active' : '' }}">Home</a></li>
+                <li><a href="{{ route('product') }}" class="mobile-nav-link {{ request()->routeIs('product') ? 'active' : '' }}">Products</a></li>
                 <li><a href="{{ url('/#about') }}" class="mobile-nav-link">About Us</a></li>
                 <li><a href="{{ url('/#process') }}" class="mobile-nav-link">Our Farm</a></li>
                 <li><a href="{{ url('/#blog') }}" class="mobile-nav-link">Blog</a></li>

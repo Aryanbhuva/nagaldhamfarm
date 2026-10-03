@@ -74,7 +74,7 @@
 
     <!-- Features Marquee Ribbon (Smooth Right to Left) -->
     <section class="features-ribbon" id="featuresRibbon" aria-label="Our Farm Highlights">
-        <div class="features-marquee-wrapper">
+        <div class="features-marquee-wrapper custom-marquee-padding">
             <div class="features-track">
                 <!-- Group 1 -->
                 <div class="features-group">
@@ -193,14 +193,22 @@
                             <div class="product-info">
                                 <h3 class="product-name">{{ $item['name'] }}</h3>
                                 <p class="product-desc">{{ $item['description'] }}</p>
-                                <a href="#" class="btn-product-action btn-view-more" data-name="{{ $item['name'] }}" data-image="{{ asset($item['image']) }}" data-desc="{{ $item['description'] }}" data-long-desc="{{ $item['long_description'] ?? '' }}">
-                                    <span>View Products</span>
-                                    <span class="btn-arrow" aria-hidden="true">
-                                        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1 6H14.5M14.5 6L9.5 1M14.5 6L9.5 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </span>
-                                </a>
+                                <div class="product-actions custom-product-actions">
+                                    <a href="#" class="btn-product-action custom-btn-view-more" data-name="{{ $item['name'] }}" data-image="{{ asset($item['image']) }}" data-desc="{{ $item['description'] }}" data-long-desc="{{ $item['long_description'] ?? '' }}">
+                                        <span>View More</span>
+                                        <span class="btn-arrow" aria-hidden="true">
+                                            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1 6H14.5M14.5 6L9.5 1M14.5 6L9.5 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                    <a href="tel:{{ config('settings.contact') }}" aria-label="Call" class="custom-btn-action custom-btn-call">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </a>
+                                    <a href="https://wa.me/{{ config('settings.whatsapp_wa') }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="custom-btn-action custom-btn-wa">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         @endforeach
@@ -240,15 +248,7 @@
                 <!-- Card 1: Pure Gir Cow Products -->
                 <div class="why-card">
                     <div class="why-card-icon">
-                        <svg width="32" height="30" viewBox="0 0 32 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M7 8c-1-2-2-3-3-3m4 2c-2 0-4 1-5 3 0 2 2 3 3 3l2 4"></path>
-                            <path d="M6 12c-1 2-1 4 0 5"></path>
-                            <path d="M11 13c1-3 3-5 5-5 2 0 3 2 4 3"></path>
-                            <path d="M20 11h6c1.5 0 2.5 1 2.5 2.5v1.5c0 3-1 6-1 8"></path>
-                            <path d="M27 15v10m-3-10v10"></path>
-                            <path d="M23 19c-3 1-7 1-10 0v6m-3-7v7"></path>
-                            <path d="M10 18c-1-1-2-3-2-5"></path>
-                        </svg>
+                        <img src="{{ asset('assets/img/icon-gir-cow-products.png') }}" alt="Pure Gir Cow Products" width="48" height="48" loading="lazy">
                     </div>
                     <span class="why-card-text">Pure Gir Cow<br>Products</span>
                 </div>
@@ -256,11 +256,7 @@
                 <!-- Card 2: Rich in Nutrition -->
                 <div class="why-card">
                     <div class="why-card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s-2-4-2-9c0-5 3-9 7-10 1 4 0 9-5 19z"></path>
-                            <path d="M12 22s2-4 2-9c0-5-3-9-7-10-1 4 0 9 5 19z"></path>
-                            <path d="M12 13l4-2m-4 5l3-1.5m-3-7l3-1.5"></path>
-                        </svg>
+                        <img src="{{ asset('assets/img/icon-100-natural-pure.png') }}" alt="Rich in Nutrition" width="48" height="48" loading="lazy">
                     </div>
                     <span class="why-card-text">Rich in Nutrition</span>
                 </div>
@@ -268,12 +264,7 @@
                 <!-- Card 3: No Chemicals or Preservatives -->
                 <div class="why-card">
                     <div class="why-card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M10 2v5.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 7.5V2"></path>
-                            <path d="M8.5 2h7"></path>
-                            <path d="M7 16h10"></path>
-                            <path d="M3 3l18 18"></path>
-                        </svg>
+                        <img src="{{ asset('assets/img/icon-chemical-free.png') }}" alt="No Chemicals or Preservatives" width="48" height="48" loading="lazy">
                     </div>
                     <span class="why-card-text">No Chemicals<br>or Preservatives</span>
                 </div>
@@ -281,13 +272,7 @@
                 <!-- Card 4: Ethically Sourced -->
                 <div class="why-card">
                     <div class="why-card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 11c0-3 2-5 5-5 0 3-2 5-5 5z"></path>
-                            <path d="M12 11c0-2-1.5-3.5-3.5-3.5 0 2 1.5 3.5 3.5 3.5z"></path>
-                            <path d="M12 11v4"></path>
-                            <path d="M4 17c2-1 4-1 6 0l2 1 2-1c2-1 4-1 6 0"></path>
-                            <path d="M3 19c3 0 5 2 9 2s6-2 9-2"></path>
-                        </svg>
+                        <img src="{{ asset('assets/img/icon-traditional-methods.png') }}" alt="Ethically Sourced" width="48" height="48" loading="lazy">
                     </div>
                     <span class="why-card-text">Ethically Sourced</span>
                 </div>
@@ -295,12 +280,7 @@
                 <!-- Card 5: Supports Local Farmers -->
                 <div class="why-card">
                     <div class="why-card-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="9" cy="8" r="3"></circle>
-                            <path d="M3 19c0-3.3 2.7-6 6-6s6 2.7 6 6"></path>
-                            <circle cx="17" cy="10" r="2.5"></circle>
-                            <path d="M15 19c.4-1.8 1.8-3.2 3.6-3.5 1.5-.2 3.1.6 3.4 2"></path>
-                        </svg>
+                        <img src="{{ asset('assets/img/icon-supports-sustainable-farming.png') }}" alt="Supports Local Farmers" width="48" height="48" loading="lazy">
                     </div>
                     <span class="why-card-text">Supports<br>Local Farmers</span>
                 </div>
@@ -308,11 +288,7 @@
                 <!-- Card 6: Good for You and the Environment -->
                 <div class="why-card">
                     <div class="why-card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 4c-9 0-14 5-14 14 0 1 1 2 2 2 9 0 14-5 14-14 0-1-1-2-2-2z"></path>
-                            <path d="M6 18c4-4 8-8 14-14"></path>
-                            <path d="M10 14l3 1m-1-4l3 1"></path>
-                        </svg>
+                        <img src="{{ asset('assets/img/icon-farm-fresh-quality.png') }}" alt="Good for You and the Environment" width="48" height="48" loading="lazy">
                     </div>
                     <span class="why-card-text">Good for You<br>and the Environment</span>
                 </div>
@@ -490,8 +466,8 @@
                     for a healthier society.
                 </p>
                 <div class="about-cta">
-                    <a href="#about" class="btn-about" id="aboutStoryBtn">
-                        <span>Know Our Story</span>
+                    <a href="{{ route('product') }}" class="btn-about" id="aboutStoryBtn">
+                        <span>Our Products</span>
                         <span class="btn-arrow" aria-hidden="true">
                             <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 6H16.5M16.5 6L11 1M16.5 6L11 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

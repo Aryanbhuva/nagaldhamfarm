@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function home(){
-        $data['meta_title'] = 'Nagaldham Farm';
-        $data['meta_description'] = 'Nagaldham Farm';
+        $data['meta_title'] = 'Nagaldham Farm - Pure Gir Cow Products & Organic Farm Produce';
+        $data['meta_description'] = 'Discover Nagaldham Farm, your trusted source for pure Gir Cow A2 Ghee, organic farm products, traditional sweets, and sacred Gaushala items. 100% natural and healthy.';
+        $data['meta_keywords'] = 'Nagaldham Farm, Gir Cow A2 Ghee, organic farm products, traditional Indian sweets, havan kanda, pure cow dung, cold pressed oil, organic wheat, natural dairy products';
 
         $products = [
             'Gaushala Products' => [
@@ -45,8 +46,9 @@ class PageController extends Controller
     }
 
     public function product(){
-        $data['meta_title'] = 'Products - Nagaldham Farm';
-        $data['meta_description'] = 'Discover the goodness of our Gaushala and organic farm products. Nourishing your family with purity, tradition and the natural care of our Gir cows.';
+        $data['meta_title'] = 'Our Products - Nagaldham Farm | A2 Ghee, Sweets & Organic Grocery';
+        $data['meta_description'] = 'Explore our wide range of 100% pure and natural products including Gir cow A2 ghee, authentic Indian sweets, and organically grown farm produce like wheat, dal, and cold-pressed oils.';
+        $data['meta_keywords'] = 'buy A2 ghee online, organic grocery, Gir cow products, traditional sweets, organic wheat, cold pressed groundnut oil, Nagaldham farm products';
 
         $categories = [
             ['name' => 'Gaushala Products', 'count' => 5, 'image' => 'assets/img/product-ghee.jpg', 'long_description' => 'Experience the unparalleled purity and authenticity of our Gaushala Products.'],

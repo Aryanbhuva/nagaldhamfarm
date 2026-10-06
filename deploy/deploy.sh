@@ -61,12 +61,33 @@ get_http_port() {
 
 update_env_tag() {
   local tag="$1"
+  if [[ ! -f "$ENV_FILE" ]]; then
+    if [[ -f "${PROJECT_DIR}/.env.production.example" ]]; then
+      cp "${PROJECT_DIR}/.env.production.example" "$ENV_FILE"
+      log "Created initial .env from .env.production.example"
+    else
+      touch "$ENV_FILE"
+    fi
+  fi
+
+  if ! grep -qE '^APP_KEY=base64:' "$ENV_FILE" 2>/dev/null; then
+    local new_key
+    new_key="base64:$(openssl rand -base64 32)"
+    if grep -qE '^APP_KEY=' "$ENV_FILE" 2>/dev/null; then
+      sed -i "s|^APP_KEY=.*|APP_KEY=${new_key}|" "$ENV_FILE"
+    else
+      echo "APP_KEY=${new_key}" >> "$ENV_FILE"
+    fi
+    log "Generated production APP_KEY in .env"
+  fi
+
   if grep -qE '^IMAGE_TAG=' "$ENV_FILE" 2>/dev/null; then
     sed -i "s|^IMAGE_TAG=.*|IMAGE_TAG=${tag}|" "$ENV_FILE"
   else
     echo "IMAGE_TAG=${tag}" >> "$ENV_FILE"
   fi
 }
+
 
 health_check() {
   local tag="$1"

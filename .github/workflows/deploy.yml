@@ -79,12 +79,14 @@ jobs:
           script: |
             mkdir -p /opt/nagaldhamfarm
             cd /opt/nagaldhamfarm
+            mkdir -p ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
             if [ ! -d ".git" ]; then
-              git clone git@github.com:Aryanbhuva/nagaldhamfarm.git .
+              git clone "https://${GHCR_USER}:${GHCR_TOKEN}@github.com/Aryanbhuva/nagaldhamfarm.git" . || GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git clone git@github.com:Aryanbhuva/nagaldhamfarm.git .
             else
-              git pull origin main
+              GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git pull origin main || true
             fi
             ./deploy/deploy.sh "$IMAGE_TAG"
+
 
 
         env:

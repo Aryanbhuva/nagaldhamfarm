@@ -1,0 +1,77 @@
+version: '3.8'
+
+# ==============================================================================
+# Nagaldham Farm — Production Docker Compose Configuration
+# Images are pulled from GHCR; build is done by GitHub Actions, not on the server.
+# For local builds use: docker-compose -f docker-compose.yml -f docker-compose.build.yml build
+# ==============================================================================
+
+services:
+  # --- PHP 8.4-FPM Application Service ---
+  # Image is pulled from GHCR. IMAGE_TAG is set in .env (written by deploy.sh).
+  app:
+    image: ghcr.io/aryanbhuva/nagaldhamfarm:${IMAGE_TAG:-latest}
+    container_name: nagaldham_app
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - storage_data:/var/www/html/storage
+      # Shared public volume so Nginx serves compiled assets & storage directly
+      - app_public:/var/www/html/public
+    networks:
+      - nagaldham_net
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  # --- Nginx Web Server Service ---
+  # Uses stock nginx:1.27-alpine image; no custom build needed.
+  # Nginx config is bind-mounted; public assets come from the shared app_public volume.
+  web:
+    image: nginx:1.27-alpine
+    container_name: nagaldham_web
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-8085}:80"
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      # Nginx reads built assets from the shared volume populated by the app container
+      - app_public:/var/www/html/public:ro
+    networks:
+      - nagaldham_net
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ping || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+# --- Dedicated Application Network ---
+networks:
+  nagaldham_net:
+    driver: bridge
+    name: nagaldham_net
+
+# --- Persistent Named Volumes ---
+volumes:
+  storage_data:
+    name: nagaldham_storage_data
+  app_public:
+    name: nagaldham_app_public

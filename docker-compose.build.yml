@@ -1,0 +1,14 @@
+version: '3.8'
+
+# ==============================================================================
+# Local build override — use this for local development builds only.
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.build.yml build
+# This file must NOT be deployed to the server.
+# ==============================================================================
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: app

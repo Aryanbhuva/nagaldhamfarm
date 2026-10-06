@@ -77,9 +77,15 @@ jobs:
           # Secrets are injected as environment variables, never echoed
           envs: IMAGE_TAG,GHCR_USER,GHCR_TOKEN
           script: |
+            mkdir -p /opt/nagaldhamfarm
             cd /opt/nagaldhamfarm
-            git pull origin main || true
+            if [ ! -d ".git" ]; then
+              git clone git@github.com:Aryanbhuva/nagaldhamfarm.git .
+            else
+              git pull origin main
+            fi
             ./deploy/deploy.sh "$IMAGE_TAG"
+
 
         env:
           IMAGE_TAG: ${{ needs.build.outputs.image_tag }}

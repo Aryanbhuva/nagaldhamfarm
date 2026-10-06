@@ -41,14 +41,17 @@ services:
     container_name: nagaldham_web
     restart: unless-stopped
     ports:
-      - "${HTTP_PORT:-8085}:80"
+      - "80:80"
+      - "443:443"
     depends_on:
       app:
         condition: service_healthy
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
       # Nginx reads built assets from the shared volume populated by the app container
       - app_public:/var/www/html/public:ro
+
     networks:
       - nagaldham_net
     logging:

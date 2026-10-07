@@ -1,0 +1,46 @@
+# ==============================================================================
+# Nagaldham Farm — Developer Dockerfile
+# Base: PHP 8.4-FPM Alpine with development tools & Composer
+# ==============================================================================
+FROM php:8.4-fpm-alpine
+
+# Install build dependencies, PHP extensions, and dev CLI tools
+RUN apk add --no-cache \
+    bash \
+    curl \
+    git \
+    zip \
+    unzip \
+    fcgi \
+    icu-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    freetype-dev \
+    libzip-dev \
+    oniguruma-dev \
+    libxml2-dev \
+ && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+ && docker-php-ext-install -j$(nproc) \
+    pdo_mysql \
+    opcache \
+    bcmath \
+    mbstring \
+    exif \
+    pcntl \
+    intl \
+    zip \
+    gd
+
+# Enable PHP-FPM ping endpoint for healthchecks
+RUN echo "ping.path = /ping" >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo "ping.response = pong" >> /usr/local/etc/php-fpm.d/www.conf
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+EXPOSE 9000
+
+CMD ["php-fpm"]

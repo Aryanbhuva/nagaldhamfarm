@@ -495,6 +495,10 @@ a {
         display: none;
     }
 
+    .header-call-btn {
+        display: none;
+    }
+
     .header-hamburger-btn {
         display: flex;
     }
@@ -2947,8 +2951,15 @@ a {
         padding: 2.75rem 1.5rem 2.25rem;
     }
     .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 2.25rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.25rem 1rem;
+    }
+    .footer-col-brand,
+    .footer-col-contact {
+        grid-column: span 2;
+    }
+    .footer-col-links {
+        grid-column: span 1;
     }
     .footer-bottom-container {
         flex-direction: column;
@@ -2958,6 +2969,29 @@ a {
     .footer-legal-links {
         justify-content: center;
         gap: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-main-container {
+        padding: 2rem 1rem;
+    }
+    .footer-grid {
+        gap: 2rem 0.5rem;
+    }
+    .footer-col-title {
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+    }
+    .footer-nav-list {
+        gap: 0.6rem;
+    }
+    .footer-link {
+        font-size: 0.9rem;
+    }
+    .footer-brand-desc {
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
     }
 }
 
@@ -3799,3 +3833,532 @@ a {
     padding-bottom: clamp(2rem, 3vw, 2.5rem) !important;
 }
 
+/* Mobile-S (320px) Responsive Overrides */
+@media (max-width: 380px) {
+    /* Containers */
+    .product-hero-container,
+    .shop-container,
+    .cta-container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    /* Hero Section */
+    .product-hero-section {
+        padding-top: 5rem !important;
+        padding-bottom: 2rem !important;
+    }
+    .product-hero-heading {
+        font-size: 2rem !important;
+    }
+    .product-hero-subheading {
+        font-size: 1.1rem !important;
+    }
+    .product-hero-text {
+        font-size: 0.9rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    .product-hero-features {
+        gap: 1rem !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .product-feature-item .feature-icon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .product-feature-item .feature-icon i {
+        font-size: 1.4em !important;
+    }
+    .product-feature-item .feature-text {
+        font-size: 0.75rem !important;
+    }
+    .product-breadcrumbs {
+        font-size: 0.85rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    /* Shop Section */
+    .shop-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        margin-bottom: 1.5rem !important;
+    }
+    .shop-title {
+        font-size: 1.6rem !important;
+    }
+    .shop-sort {
+        width: 100% !important;
+    }
+    .sort-select {
+        width: 100% !important;
+        font-size: 0.85rem !important;
+    }
+    
+    /* Category cards */
+    .shop-category-card {
+        padding: 1rem !important;
+        gap: 0.75rem !important;
+    }
+    .category-img-box {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    .category-info h3 {
+        font-size: 0.95rem !important;
+    }
+    .category-info p {
+        font-size: 0.75rem !important;
+    }
+    
+    /* Sidebar Widgets */
+    .sidebar-widget {
+        padding: 1.25rem !important;
+    }
+    .widget-title {
+        font-size: 1.1rem !important;
+    }
+    
+    /* Product Cards */
+    .product-details {
+        padding: 1rem !important;
+    }
+    .product-name {
+        font-size: 0.95rem !important;
+    }
+    .product-desc {
+        font-size: 0.8rem !important;
+    }
+    .product-category-badge {
+        font-size: 0.7rem !important;
+        padding: 0.2rem 0.5rem !important;
+    }
+    
+    /* Ensure Product Buttons fit on 320px */
+    .product-action-buttons {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        margin-top: 1rem !important;
+    }
+    .btn-view-more {
+        flex: 1 1 100% !important; 
+        font-size: 0.9rem !important;
+        padding: 0.5rem 0 !important;
+    }
+    .btn-action {
+        flex: 1 1 calc(50% - 4px) !important;
+        width: auto !important;
+        height: 38px !important;
+    }
+
+    /* CTA Section */
+    .cta-title {
+        font-size: 1.6rem !important;
+    }
+    .cta-subtitle {
+        font-size: 0.9rem !important;
+    }
+    .cta-actions {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 10px !important;
+    }
+    .cta-btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}
+
+/* ==========================================================================
+   Premium Why Choose Us Section
+   ========================================================================== */
+.premium-why-choose {
+    position: relative;
+    width: 100%;
+    padding: 6rem 0;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.premium-why-overlay {
+    display: none;
+}
+
+.premium-why-container {
+    position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    z-index: 2;
+}
+
+.premium-why-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.premium-why-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #a67b45;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.premium-why-eyebrow .eyebrow-line {
+    width: 40px;
+    height: 1px;
+    background-color: #a67b45;
+}
+
+.premium-why-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: #1a2a1e;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.premium-why-title .accent-text {
+    color: #b58032;
+    font-style: normal;
+}
+
+.premium-why-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #a67b45;
+    margin: 1.5rem 0;
+}
+
+.premium-why-divider .fa-leaf {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.premium-why-divider .leaf-center {
+    font-size: 1.2rem;
+    opacity: 1;
+}
+
+.premium-why-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: #4b5a4d;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.premium-why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.premium-card {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.premium-card-icon {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.premium-card-icon img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    transition: transform 0.4s ease;
+}
+
+.premium-card:hover .premium-card-icon img {
+    transform: scale(1.1);
+}
+
+.premium-card-icon .icon-leaves {
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    z-index: 3;
+    color: #4a7536;
+    font-size: 1.4rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.icon-leaves .left-leaf {
+    transform: rotate(-45deg);
+}
+.icon-leaves .right-leaf {
+    transform: rotate(45deg) scaleX(-1);
+}
+
+.premium-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: #0c2b16;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.premium-card-desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: #556255;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.premium-card-line {
+    width: 40px;
+    height: 3px;
+    background-color: #b58032;
+    margin-top: auto;
+    border-radius: 2px;
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.premium-card:hover .premium-card-line {
+    width: 80px;
+    background-color: #a67b45;
+}
+
+/* Premium Animations */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .premium-why-grid {
+        gap: 1.5rem;
+    }
+}
+@media (max-width: 1024px) {
+    .premium-why-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    .premium-why-choose {
+        padding: 5rem 0;
+    }
+}
+@media (max-width: 600px) {
+    .premium-why-grid {
+        grid-template-columns: 1fr;
+    }
+    .premium-why-choose {
+        padding: 4rem 0;
+    }
+    .premium-why-title {
+        font-size: 2rem;
+    }
+    .premium-why-subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================================================
+   Panch Sanskar Vedic Bilona Process Section
+   ========================================================================== */
+.vedic-process-section {
+    padding: 6rem 0;
+    background-color: var(--color-white, #ffffff);
+    font-family: var(--font-body);
+}
+
+.vedic-process-container {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.vedic-process-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.vedic-process-eyebrow {
+    color: #c99863;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.vedic-process-title {
+    font-family: var(--font-heading);
+    color: var(--color-heading, #161b15);
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.vedic-process-subtitle-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.vedic-process-subtitle {
+    color: var(--color-subheading, #384237);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.vedic-line {
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #c99863;
+}
+
+.vedic-process-timeline {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.vedic-process-line {
+    position: absolute;
+    top: 30px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background-color: #e5dac7;
+    z-index: 1;
+}
+
+.vedic-step {
+    flex: 1;
+    background-color: #f9f6ef;
+    border-radius: 12px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #f0eadb;
+}
+
+.vedic-step:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.vedic-step-number {
+    width: 60px;
+    height: 60px;
+    background-color: #1e3a29;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px rgba(30, 58, 41, 0.3);
+    border: 4px solid #f9f6ef;
+    transition: all 0.3s ease;
+}
+
+.vedic-step:hover .vedic-step-number {
+    background-color: #c99863;
+    box-shadow: 0 4px 10px rgba(201, 152, 99, 0.3);
+}
+
+.vedic-step-title {
+    font-family: var(--font-heading);
+    color: var(--color-heading, #161b15);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.vedic-step-desc {
+    color: var(--color-subheading, #384237);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 991px) {
+    .vedic-process-timeline {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+    
+    .vedic-process-line {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        transform: translateX(-50%);
+    }
+    
+    .vedic-step {
+        width: 100%;
+        max-width: 400px;
+        min-height: auto;
+    }
+}

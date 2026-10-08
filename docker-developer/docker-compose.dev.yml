@@ -1,0 +1,68 @@
+version: '3.8'
+
+# ==============================================================================
+# Nagaldham Farm — Developer Local Docker Compose Setup
+# Usage: docker-compose -f docker-developer/docker-compose.dev.yml up -d
+# ==============================================================================
+
+services:
+  # --- PHP 8.4-FPM Developer Service ---
+  app:
+    build:
+      context: ..
+      dockerfile: docker-developer/Dockerfile.dev
+    container_name: nagaldham_dev_app
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    volumes:
+      # Bind-mount full repository so local code changes reflect instantly
+      - ..:/var/www/html
+    networks:
+      - nagaldham_dev_net
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD-SHELL", "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  # --- Nginx Developer Web Server Service ---
+  web:
+    image: nginx:1.27-alpine
+    container_name: nagaldham_dev_web
+    restart: unless-stopped
+    ports:
+      - "${DEV_PORT:-8080}:80"
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/conf.d/default.conf:ro
+      - ..:/var/www/html:ro
+    networks:
+      - nagaldham_dev_net
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ping || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+networks:
+  nagaldham_dev_net:
+    driver: bridge
+    name: nagaldham_dev_net

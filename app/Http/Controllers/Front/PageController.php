@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Traits\SitemapTrait;
 
 class PageController extends Controller
 {
+    use SitemapTrait;
+
     public function home(){
         $data['meta_title'] = 'Nagaldham Farm - Pure Gir Cow Products & Organic Farm Produce';
         $data['meta_description'] = 'Discover Nagaldham Farm, your trusted source for pure Gir Cow A2 Ghee, organic farm products, traditional sweets, and sacred Gaushala items. 100% natural and healthy.';
@@ -87,5 +90,13 @@ class PageController extends Controller
             ['name' => 'Sesame Oil', 'category' => 'Organic Farm Products', 'description' => 'Premium cold-pressed sesame oil.', 'rating' => '4.7', 'image' => 'assets/img/product-sesame-oil.jpg', 'long_description' => 'Our premium cold-pressed Sesame Oil is crafted from the finest organic sesame seeds. Known for its distinct flavor and numerous health benefits, it is an excellent choice for cooking, body massage, and Ayurvedic treatments.']
         ];
         return view('front.product', compact('data', 'categories', 'allProducts'));
+    }
+
+    public function generateSitemap()
+    {
+        $counts = $this->generateSitemapFile();
+        return "Sitemap generated successfully in public/sitemap.xml."
+            . " <br> Static Pages: " . $counts['static_count']
+            . " <br><strong>Total URLs: " . $counts['total_count'] . "</strong>";
     }
 }

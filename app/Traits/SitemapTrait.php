@@ -33,7 +33,11 @@ trait SitemapTrait
 
         $xml .= '</urlset>';
 
-        File::put(public_path('sitemap.xml'), $xml);
+        try {
+            File::put(public_path('sitemap.xml'), $xml);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('Could not write sitemap.xml: ' . $e->getMessage());
+        }
 
         return [
             'static_count' => count($staticPages),
@@ -41,3 +45,4 @@ trait SitemapTrait
         ];
     }
 }
+

@@ -218,79 +218,120 @@
         </div>
     </section>
 
-    <!-- Why Choose Our Gir Cow Products Section -->
-    <section class="why-choose-section" id="whyChoose">
-        <div class="why-choose-overlay" aria-hidden="true"></div>
-        <div class="why-choose-container">
-            <!-- Left Text Column -->
-            <div class="why-choose-content">
-                <span class="why-choose-tag">WHY CHOOSE OUR</span>
-                <h2 class="why-choose-title">Gir Cow Products?</h2>
-                <p class="why-choose-desc">
-                    Bringing you the best of nature through<br>
-                    our farm-fresh, chemical-free and<br>
-                    traditionally prepared products.
-                </p>
-                <div class="why-choose-cta">
-                    <a href="#about" class="btn-why-choose" id="whyChooseBtn">
-                        <span>Learn More</span>
-                        <span class="btn-arrow" aria-hidden="true">
-                            <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 6H16.5M16.5 6L11 1M16.5 6L11 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                    </a>
+    <!-- Panch Sanskar Vedic Bilona Process Section -->
+    <section class="vedic-process-section" id="vedic-process">
+        <div class="vedic-process-container">
+            <div class="vedic-process-header fade-in-up">
+                <h4 class="vedic-process-eyebrow">
+                    Scriptural ritual
+                </h4>
+                <h2 class="vedic-process-title">
+                    Panch Sanskar Vedic Bilona Process
+                </h2>
+                <div class="vedic-process-subtitle-line">
+                    <p class="vedic-process-subtitle">Pure medicinal nectar prepared in five stages according to Charaka Samhita</p>
+                    <span class="vedic-line"></span>
                 </div>
             </div>
 
-            <!-- Right Features Grid (3x2 Floating Cards) -->
-            <div class="why-choose-grid">
-                <!-- Card 1: Pure Gir Cow Products -->
-                <div class="why-card">
-                    <div class="why-card-icon">
-                        <img src="{{ asset('assets/img/icon-gir-cow-products.png') }}" alt="Pure Gir Cow Products" width="48" height="48" loading="lazy">
-                    </div>
-                    <span class="why-card-text">Pure Gir Cow<br>Products</span>
+            <div class="vedic-process-timeline fade-in-up">
+                <div class="vedic-process-line"></div>
+                
+                <!-- Step 1 -->
+                <div class="vedic-step">
+                    <div class="vedic-step-number">1</div>
+                    <h3 class="vedic-step-title">Milking rites</h3>
+                    <p class="vedic-step-desc">After satisfying the calves, milking is done by hand at sunrise, accompanied by the chanting of sacred mantras.</p>
                 </div>
 
-                <!-- Card 2: Rich in Nutrition -->
-                <div class="why-card">
-                    <div class="why-card-icon">
-                        <img src="{{ asset('assets/img/icon-100-natural-pure.png') }}" alt="Rich in Nutrition" width="48" height="48" loading="lazy">
-                    </div>
-                    <span class="why-card-text">Rich in Nutrition</span>
+                <!-- Step 2 -->
+                <div class="vedic-step">
+                    <div class="vedic-step-number">2</div>
+                    <h3 class="vedic-step-title">Blending process</h3>
+                    <p class="vedic-step-desc">Boil the dung of indigenous cow in a clay pot on low heat for hours.</p>
                 </div>
 
-                <!-- Card 3: No Chemicals or Preservatives -->
-                <div class="why-card">
-                    <div class="why-card-icon">
-                        <img src="{{ asset('assets/img/icon-chemical-free.png') }}" alt="No Chemicals or Preservatives" width="48" height="48" loading="lazy">
-                    </div>
-                    <span class="why-card-text">No Chemicals<br>or Preservatives</span>
+                <!-- Step 3 -->
+                <div class="vedic-step">
+                    <div class="vedic-step-number">3</div>
+                    <h3 class="vedic-step-title">Rite of passage</h3>
+                    <p class="vedic-step-desc">Cool the milk, add the desi mixture and store the natural curd in an earthen vessel overnight.</p>
                 </div>
 
-                <!-- Card 4: Ethically Sourced -->
-                <div class="why-card">
-                    <div class="why-card-icon">
-                        <img src="{{ asset('assets/img/icon-traditional-methods.png') }}" alt="Ethically Sourced" width="48" height="48" loading="lazy">
-                    </div>
-                    <span class="why-card-text">Ethically Sourced</span>
+                <!-- Step 4 -->
+                <div class="vedic-step">
+                    <div class="vedic-step-number">4</div>
+                    <h3 class="vedic-step-title">Churning rites</h3>
+                    <p class="vedic-step-desc">During Brahma Muhurat, curd is churned in both directions with a wooden spoon to make butter.</p>
                 </div>
 
-                <!-- Card 5: Supports Local Farmers -->
-                <div class="why-card">
-                    <div class="why-card-icon">
-                        <img src="{{ asset('assets/img/icon-supports-sustainable-farming.png') }}" alt="Supports Local Farmers" width="48" height="48" loading="lazy">
+                <!-- Step 5 -->
+                <div class="vedic-step vedic-step-final">
+                    <div class="vedic-step-number">5</div>
+                    <h3 class="vedic-step-title">Heating & Detection</h3>
+                    <p class="vedic-step-desc">Cook butter in a brass or earthenware vessel over low heat to make golden granules.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Premium Why Choose Us Section -->
+    <section class="premium-why-choose" id="whyChoose" style="background-image: url('{{ asset('assets/img/4-pilar-bg.webp') }}');">
+        <div class="premium-why-overlay"></div>
+        <div class="premium-why-container">
+            <div class="premium-why-header fade-in-up">
+                <h4 class="premium-why-eyebrow">
+                    <span class="eyebrow-line"></span>
+                    WHY CHOOSE OUR GAUSHALA PRODUCTS?
+                    <span class="eyebrow-line"></span>
+                </h4>
+                <h2 class="premium-why-title">
+                    A Tradition of Purity<br>in <span class="accent-text">Every Product</span>
+                </h2>
+                <div class="premium-why-divider">
+                    <i class="fa-solid fa-leaf"></i>
+                    <i class="fa-solid fa-leaf leaf-center"></i>
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+                <p class="premium-why-subtitle">
+                    Our products are crafted with love, care and traditional wisdom<br>to bring you natural wellness and a healthier tomorrow.
+                </p>
+            </div>
+
+            <div class="premium-why-grid">
+                <!-- Card 1 -->
+                <div class="premium-card fade-in-up" style="animation-delay: 0.1s;">
+                    <div class="premium-card-icon">
+                        <img src="{{ asset('assets/img/ahimsa.png') }}" alt="Ahimsa Milk" loading="lazy">
                     </div>
-                    <span class="why-card-text">Supports<br>Local Farmers</span>
+                    <h3 class="premium-card-title">Ahimsa Milk</h3>
+                    <p class="premium-card-desc">Ethically sourced milk from our desi cows, ensuring purity, nutrition and compassion in every drop.</p>
                 </div>
 
-                <!-- Card 6: Good for You and the Environment -->
-                <div class="why-card">
-                    <div class="why-card-icon">
-                        <img src="{{ asset('assets/img/icon-farm-fresh-quality.png') }}" alt="Good for You and the Environment" width="48" height="48" loading="lazy">
+                <!-- Card 2 -->
+                <div class="premium-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="premium-card-icon">
+                        <img src="{{ asset('assets/img/trd-process.png') }}" alt="Traditional Processing" loading="lazy">
                     </div>
-                    <span class="why-card-text">Good for You<br>and the Environment</span>
+                    <h3 class="premium-card-title">Traditional Processing</h3>
+                    <p class="premium-card-desc">Our products are prepared using age-old traditional methods to preserve their natural goodness and purity.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="premium-card fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="premium-card-icon">
+                        <img src="{{ asset('assets/img/wooden.png') }}" alt="Wooden Bilona" loading="lazy">
+                    </div>
+                    <h3 class="premium-card-title">Wooden Bilona</h3>
+                    <p class="premium-card-desc">We use traditional wooden bilona churners to retain maximum nutrients and authentic taste.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="premium-card fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="premium-card-icon">
+                        <img src="{{ asset('assets/img/nabl.png') }}" alt="NABL Certified" loading="lazy">
+                    </div>
+                    <h3 class="premium-card-title">NABL Certified</h3>
+                    <p class="premium-card-desc">Our products are tested in NABL accredited laboratories to ensure highest quality, purity and safety for your family.</p>
                 </div>
             </div>
         </div>

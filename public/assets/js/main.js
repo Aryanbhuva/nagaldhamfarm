@@ -354,4 +354,28 @@ function initHeader() {
     });
 }
 
+/**
+ * Premium Scroll Animations
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    // Optional: Stop observing once animated
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        const fadeElements = document.querySelectorAll('.fade-in-up');
+        fadeElements.forEach(el => observer.observe(el));
+    } else {
+        // Fallback for older browsers
+        const fadeElements = document.querySelectorAll('.fade-in-up');
+        fadeElements.forEach(el => el.classList.add('in-view'));
+    }
+});
+
 

@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>{{ $data['meta_title'] }}</title>
 
+    <meta name="google-site-verification" content="rOUU_Vp3BQOE0dUqMNS3kVv0zACBGGNjEhd3mKSWXsI" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="{{ $data['meta_description'] ?? '' }}">
     <meta name="keywords" content="{{ $data['meta_keywords'] ?? '' }}">
@@ -35,6 +36,15 @@
 </head>
 
 <body>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EG1R974Z6G"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-EG1R974Z6G');
+    </script>
     @include('partials.front.header')
     @yield('content')
     @include('partials.front.footer')

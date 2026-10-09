@@ -20,7 +20,12 @@ trait SitemapTrait
             'products'   // Products page
         ];
 
-        $baseUrl = rtrim(config('app.url'), '/');
+        if (request() && request()->getHost() && !in_array(request()->getHost(), ['localhost', '127.0.0.1'])) {
+            $baseUrl = rtrim(request()->schemeAndHttpHost(), '/');
+        } else {
+            $baseUrl = rtrim(config('app.url', 'https://nagaldhamfarm.shop'), '/');
+        }
+
 
         foreach ($staticPages as $page) {
             $xml .= '    <url>' . PHP_EOL;

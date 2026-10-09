@@ -7,14 +7,10 @@ use Illuminate\Support\Facades\File;
 trait SitemapTrait
 {
     /**
-     * Generate the sitemap XML and save it to the public folder.
+     * Generate the sitemap XML string and save it to the public folder.
      */
-    public function generateSitemapFile()
+    public function generateSitemapXml()
     {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
-
-        // Static Pages
         $staticPages = [
             '',          // Home page
             'products'   // Products page
@@ -26,6 +22,8 @@ trait SitemapTrait
             $baseUrl = rtrim(config('app.url', 'https://nagaldhamfarm.shop'), '/');
         }
 
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
 
         foreach ($staticPages as $page) {
             $xml .= '    <url>' . PHP_EOL;
@@ -44,10 +42,6 @@ trait SitemapTrait
             \Illuminate\Support\Facades\Log::warning('Could not write sitemap.xml: ' . $e->getMessage());
         }
 
-        return [
-            'static_count' => count($staticPages),
-            'total_count' => count($staticPages)
-        ];
+        return $xml;
     }
 }
-

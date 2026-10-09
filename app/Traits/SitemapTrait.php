@@ -2,12 +2,10 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\File;
-
 trait SitemapTrait
 {
     /**
-     * Generate the sitemap XML string and save it to the public folder.
+     * Generate the sitemap XML string dynamically.
      */
     public function generateSitemapXml()
     {
@@ -35,12 +33,6 @@ trait SitemapTrait
         }
 
         $xml .= '</urlset>';
-
-        try {
-            File::put(public_path('sitemap.xml'), $xml);
-        } catch (\Throwable $e) {
-            \Illuminate\Support\Facades\Log::warning('Could not write sitemap.xml: ' . $e->getMessage());
-        }
 
         return $xml;
     }

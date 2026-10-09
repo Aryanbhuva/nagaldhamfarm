@@ -13,6 +13,8 @@ build: ## Build/rebuild local developer Docker images
 
 up: ## Start local developer containers manually
 	$(COMPOSE) -f $(COMPOSE_FILE) up -d
+	$(COMPOSE) -f $(COMPOSE_FILE) exec -u 0 -T app chmod -R 777 storage bootstrap/cache public 2>/dev/null || true
+
 
 down: ## Stop and remove local developer containers
 	$(COMPOSE) -f $(COMPOSE_FILE) down

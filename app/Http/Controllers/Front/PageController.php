@@ -94,9 +94,7 @@ class PageController extends Controller
 
     public function generateSitemap()
     {
-        $counts = $this->generateSitemapFile();
-        return "Sitemap generated successfully in public/sitemap.xml."
-            . " <br> Static Pages: " . $counts['static_count']
-            . " <br><strong>Total URLs: " . $counts['total_count'] . "</strong>";
+        $xml = $this->generateSitemapXml();
+        return response($xml, 200)->header('Content-Type', 'text/xml');
     }
 }

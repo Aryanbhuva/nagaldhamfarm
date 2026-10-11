@@ -85,6 +85,7 @@ jobs:
             else
               GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git pull origin main || true
             fi
+            mkdir -p public && chmod 777 public && touch public/sitemap.xml && chmod 666 public/sitemap.xml 2>/dev/null || true
             ./deploy/deploy.sh "$IMAGE_TAG"
 
 

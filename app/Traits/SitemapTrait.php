@@ -3,59 +3,100 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 trait SitemapTrait
 {
     /**
-     * Generate a single comprehensive sitemap file covering all
-     * static pages and dynamic (product / blog / category) URLs.
+     * Get all indexed URL items with metadata.
      *
-     * @return array{static_count:int, product_count:int, blog_count:int, category_count:int, total_count:int}
+     * @return array<int, array{name:string, loc:string, priority:string, changefreq:string, lastmod:string}>
      */
-    public function generateSitemapFile(): array
+    public function getSitemapUrls(): array
     {
         $baseUrl = rtrim(config('app.url', request()->getSchemeAndHttpHost()), '/');
         $now     = now()->toAtomString();
 
-        // ── XML open ──────────────────────────────────────────────────────────
-        $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
-
-        // ── Static pages ──────────────────────────────────────────────────────
-        $staticPages = [
-            '',
-            'products',
-        ];
-
-        foreach ($staticPages as $page) {
-            $loc        = $baseUrl . ($page !== '' ? '/' . $page : '');
-            $priority   = ($page === '') ? '1.0' : '0.8';
-            $changefreq = 'weekly';
-            $xml .= $this->buildUrl($loc, $now, $changefreq, $priority);
-        }
-
-        $xml .= '</urlset>';
-
-        // ── Write to public/sitemap.xml ───────────────────────────────────────
-        File::put(public_path('sitemap.xml'), $xml);
-
         return [
-            'static_count'   => count($staticPages),
-            'total_count'    => count($staticPages),
+            [
+                'name'       => 'Home',
+                'loc'        => $baseUrl . '/',
+                'priority'   => '1.0',
+                'changefreq' => 'daily',
+                'lastmod'    => $now,
+            ],
+            [
+                'name'       => 'Products Catalog',
+                'loc'        => $baseUrl . '/products',
+                'priority'   => '0.8',
+                'changefreq' => 'weekly',
+                'lastmod'    => $now,
+            ],
         ];
     }
 
     /**
-     * Build a single <url> block.
+     * Build the raw XML string for the sitemap.
+     */
+    public function generateSitemapXml(): string
+    {
+        $urls = $this->getSitemapUrls();
+
+        $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+        foreach ($urls as $item) {
+            $xml .= $this->buildUrl($item['loc'], $item['lastmod'], $item['changefreq'], $item['priority']);
+        }
+
+        $xml .= '</urlset>';
+
+        return $xml;
+    }
+
+    /**
+     * Generate sitemap XML and safely write it to public/sitemap.xml if permitted.
+     *
+     * @return array{static_count:int, total_count:int, urls:array, xml:string, file_saved:bool, file_error:?string}
+     */
+    public function generateSitemapFile(): array
+    {
+        $urls = $this->getSitemapUrls();
+        $xml  = $this->generateSitemapXml();
+
+        $fileSaved = false;
+        $fileError = null;
+
+        try {
+            $targetPath = public_path('sitemap.xml');
+            File::put($targetPath, $xml);
+            $fileSaved = true;
+        } catch (\Throwable $e) {
+            $fileError = $e->getMessage();
+            Log::warning('SitemapTrait: could not write sitemap.xml to public directory: ' . $fileError);
+        }
+
+        return [
+            'static_count' => count($urls),
+            'total_count'  => count($urls),
+            'urls'         => $urls,
+            'xml'          => $xml,
+            'file_saved'   => $fileSaved,
+            'file_error'   => $fileError,
+        ];
+    }
+
+    /**
+     * Build a single <url> XML block.
      */
     private function buildUrl(string $loc, string $lastmod, string $changefreq, string $priority): string
     {
-        $block  = '    <url>' . PHP_EOL;
-        $block .= '        <loc>' . htmlspecialchars($loc, ENT_XML1, 'UTF-8') . '</loc>' . PHP_EOL;
-        $block .= '        <lastmod>' . $lastmod . '</lastmod>' . PHP_EOL;
-        $block .= '        <changefreq>' . $changefreq . '</changefreq>' . PHP_EOL;
-        $block .= '        <priority>' . $priority . '</priority>' . PHP_EOL;
-        $block .= '    </url>' . PHP_EOL;
+        $block  = "    <url>\n";
+        $block .= "        <loc>" . htmlspecialchars($loc, ENT_XML1, 'UTF-8') . "</loc>\n";
+        $block .= "        <lastmod>" . $lastmod . "</lastmod>\n";
+        $block .= "        <changefreq>" . $changefreq . "</changefreq>\n";
+        $block .= "        <priority>" . $priority . "</priority>\n";
+        $block .= "    </url>\n";
         return $block;
     }
 }

@@ -116,6 +116,14 @@ start_stack() {
   log "Starting stack with IMAGE_TAG=${tag}..."
   cd "$PROJECT_DIR"
   update_env_tag "$tag"
+
+  # Ensure public directory and sitemap.xml have write permissions for web server / php container
+  log "Setting write permissions for public directory and sitemap..."
+  mkdir -p "${PROJECT_DIR}/public"
+  chmod 777 "${PROJECT_DIR}/public" 2>/dev/null || true
+  touch "${PROJECT_DIR}/public/sitemap.xml" 2>/dev/null || true
+  chmod 666 "${PROJECT_DIR}/public/sitemap.xml" 2>/dev/null || true
+
   "$COMPOSE_CMD" pull
   "$COMPOSE_CMD" rm -f web
   "$COMPOSE_CMD" up -d --remove-orphans

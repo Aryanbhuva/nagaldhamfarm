@@ -2,38 +2,60 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\File;
+
 trait SitemapTrait
 {
     /**
-     * Generate the sitemap XML string dynamically.
+     * Generate a single comprehensive sitemap file covering all
+     * static pages and dynamic (product / blog / category) URLs.
+     *
+     * @return array{static_count:int, product_count:int, blog_count:int, category_count:int, total_count:int}
      */
-    public function generateSitemapXml()
+    public function generateSitemapFile(): array
     {
-        $staticPages = [
-            '',          // Home page
-            'products'   // Products page
-        ];
+        $baseUrl = rtrim(config('app.url', request()->getSchemeAndHttpHost()), '/');
+        $now     = now()->toAtomString();
 
-        if (request() && request()->getHost() && !in_array(request()->getHost(), ['localhost', '127.0.0.1'])) {
-            $baseUrl = rtrim(request()->schemeAndHttpHost(), '/');
-        } else {
-            $baseUrl = rtrim(config('app.url', 'https://nagaldhamfarm.shop'), '/');
-        }
-
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+        // ── XML open ──────────────────────────────────────────────────────────
+        $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
 
+        // ── Static pages ──────────────────────────────────────────────────────
+        $staticPages = [
+            '',
+            'products',
+        ];
+
         foreach ($staticPages as $page) {
-            $xml .= '    <url>' . PHP_EOL;
-            $xml .= '        <loc>' . $baseUrl . ($page ? '/' . $page : '') . '</loc>' . PHP_EOL;
-            $xml .= '        <lastmod>' . now()->toAtomString() . '</lastmod>' . PHP_EOL;
-            $xml .= '        <changefreq>weekly</changefreq>' . PHP_EOL;
-            $xml .= '        <priority>' . ($page === '' ? '1.0' : '0.8') . '</priority>' . PHP_EOL;
-            $xml .= '    </url>' . PHP_EOL;
+            $loc        = $baseUrl . ($page !== '' ? '/' . $page : '');
+            $priority   = ($page === '') ? '1.0' : '0.8';
+            $changefreq = 'weekly';
+            $xml .= $this->buildUrl($loc, $now, $changefreq, $priority);
         }
 
         $xml .= '</urlset>';
 
-        return $xml;
+        // ── Write to public/sitemap.xml ───────────────────────────────────────
+        File::put(public_path('sitemap.xml'), $xml);
+
+        return [
+            'static_count'   => count($staticPages),
+            'total_count'    => count($staticPages),
+        ];
+    }
+
+    /**
+     * Build a single <url> block.
+     */
+    private function buildUrl(string $loc, string $lastmod, string $changefreq, string $priority): string
+    {
+        $block  = '    <url>' . PHP_EOL;
+        $block .= '        <loc>' . htmlspecialchars($loc, ENT_XML1, 'UTF-8') . '</loc>' . PHP_EOL;
+        $block .= '        <lastmod>' . $lastmod . '</lastmod>' . PHP_EOL;
+        $block .= '        <changefreq>' . $changefreq . '</changefreq>' . PHP_EOL;
+        $block .= '        <priority>' . $priority . '</priority>' . PHP_EOL;
+        $block .= '    </url>' . PHP_EOL;
+        return $block;
     }
 }

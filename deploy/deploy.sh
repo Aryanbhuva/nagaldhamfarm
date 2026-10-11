@@ -81,6 +81,12 @@ update_env_tag() {
     log "Generated production APP_KEY in .env"
   fi
 
+  # Ensure APP_URL exists in .env if not already defined
+  if ! grep -qE '^APP_URL=' "$ENV_FILE" 2>/dev/null; then
+    echo "APP_URL=https://nagaldhamfarm.shop" >> "$ENV_FILE"
+    log "Initialized APP_URL in .env"
+  fi
+
   if grep -qE '^IMAGE_TAG=' "$ENV_FILE" 2>/dev/null; then
     sed -i "s|^IMAGE_TAG=.*|IMAGE_TAG=${tag}|" "$ENV_FILE"
   else

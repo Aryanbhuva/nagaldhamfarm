@@ -14,7 +14,7 @@ trait SitemapTrait
      */
     public function getSitemapUrls(): array
     {
-        $baseUrl = rtrim(config('app.url', request()->getSchemeAndHttpHost()), '/');
+        $baseUrl = rtrim(config('app.url') ?: env('APP_URL'), '/');
         $now     = now()->toAtomString();
 
         return [

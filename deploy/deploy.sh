@@ -133,6 +133,11 @@ start_stack() {
   "$COMPOSE_CMD" pull
   "$COMPOSE_CMD" rm -f web
   "$COMPOSE_CMD" up -d --remove-orphans
+
+  # Refresh Laravel cached config with the live server's .env file
+  log "Refreshing Laravel config cache with server .env..."
+  "$COMPOSE_CMD" exec -T app php artisan config:clear || true
+  "$COMPOSE_CMD" exec -T app php artisan config:cache || true
 }
 
 rollback_to() {

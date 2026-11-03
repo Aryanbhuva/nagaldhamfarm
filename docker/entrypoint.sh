@@ -29,5 +29,9 @@ php artisan config:cache --no-interaction
 php artisan route:cache --no-interaction
 php artisan view:cache --no-interaction
 
+# Automatically generate production sitemap in public/sitemap.xml
+echo "==> Generating sitemap..."
+php artisan sitemap:generate --no-interaction || true
+
 echo "==> Nagaldham Farm application initialization complete. Executing command..."
 exec "$@"

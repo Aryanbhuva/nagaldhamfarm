@@ -81,6 +81,7 @@ trait SitemapTrait
         try {
             $targetPath = public_path('sitemap.xml');
             File::put($targetPath, $xml);
+            @chmod($targetPath, 0666);
             $fileSaved = true;
         } catch (\Throwable $e) {
             $fileError = $e->getMessage();

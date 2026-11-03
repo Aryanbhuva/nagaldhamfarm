@@ -81,11 +81,24 @@ jobs:
             cd /opt/nagaldhamfarm
             mkdir -p ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null || true
             if [ ! -d ".git" ]; then
-              git clone "https://${GHCR_USER}:${GHCR_TOKEN}@github.com/Aryanbhuva/nagaldhamfarm.git" . || GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git clone git@github.com:Aryanbhuva/nagaldhamfarm.git .
+              git clone "https://${GHCR_USER}:${GHCR_TOKEN}@github.com/Aryanbhuva/nagaldhamfarm.git" .
             else
-              GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git pull origin main || true
+              git remote set-url origin "https://${GHCR_USER}:${GHCR_TOKEN}@github.com/Aryanbhuva/nagaldhamfarm.git"
+              git fetch origin main
+              git checkout -f main
+              git reset --hard origin/main
             fi
+            git remote set-url origin "https://github.com/Aryanbhuva/nagaldhamfarm.git" 2>/dev/null || true
+
+            # Direct server-side remediation for APP_URL and stale sitemap
+            if [ -f ".env" ]; then
+              sed -i 's|^APP_URL=.*localhost.*|APP_URL=https://nagaldhamfarm.shop|' .env
+              sed -i 's|^APP_URL=.*127\.0\.0\.1.*|APP_URL=https://nagaldhamfarm.shop|' .env
+            fi
+            rm -f public/sitemap.xml 2>/dev/null || true
+
             mkdir -p public && chmod 777 public 2>/dev/null || true
+            chmod +x ./deploy/deploy.sh
             ./deploy/deploy.sh "$IMAGE_TAG"
 
 

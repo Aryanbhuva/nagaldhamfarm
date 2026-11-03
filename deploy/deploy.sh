@@ -108,7 +108,7 @@ health_check() {
   while [[ $elapsed -lt $HEALTH_TIMEOUT ]]; do
     if curl -fsSL -k -o /dev/null "${base_url}/ping" && \
        curl -fsSL -k -o /dev/null "${base_url}/" && \
-       curl -fsSL -k "${base_url}/sitemap.xml" 2>/dev/null | grep -q "https://nagaldhamfarm.shop"; then
+       (curl -fsSL -k -H "Host: nagaldhamfarm.shop" "${base_url}/sitemap.xml" 2>/dev/null || curl -fsSL -k "${base_url}/sitemap.xml" 2>/dev/null) | grep -q "https://nagaldhamfarm.shop"; then
       log "Health check PASSED (image tag: ${tag}, sitemap verified)"
       return 0
     fi

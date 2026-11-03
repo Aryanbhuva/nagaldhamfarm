@@ -81,8 +81,11 @@ update_env_tag() {
     log "Generated production APP_KEY in .env"
   fi
 
-  # Ensure APP_URL exists in .env if not already defined
-  if ! grep -qE '^APP_URL=' "$ENV_FILE" 2>/dev/null; then
+  # Ensure APP_URL in .env points to the production domain (not localhost)
+  if grep -qE '^APP_URL=.*localhost' "$ENV_FILE" 2>/dev/null || grep -qE '^APP_URL=.*127\.0\.0\.1' "$ENV_FILE" 2>/dev/null; then
+    sed -i 's|^APP_URL=.*|APP_URL=https://nagaldhamfarm.shop|' "$ENV_FILE"
+    log "Corrected APP_URL to https://nagaldhamfarm.shop in .env"
+  elif ! grep -qE '^APP_URL=' "$ENV_FILE" 2>/dev/null; then
     echo "APP_URL=https://nagaldhamfarm.shop" >> "$ENV_FILE"
     log "Initialized APP_URL in .env"
   fi
@@ -100,12 +103,13 @@ health_check() {
   local base_url="http://127.0.0.1"
   local elapsed=0
 
-  log "Health check: polling ${base_url}/ and /products (timeout: ${HEALTH_TIMEOUT}s)"
+  log "Health check: polling ${base_url}/, /products and /sitemap.xml (timeout: ${HEALTH_TIMEOUT}s)"
 
   while [[ $elapsed -lt $HEALTH_TIMEOUT ]]; do
     if curl -fsSL -k -o /dev/null "${base_url}/ping" && \
-       curl -fsSL -k -o /dev/null "${base_url}/"; then
-      log "Health check PASSED (image tag: ${tag})"
+       curl -fsSL -k -o /dev/null "${base_url}/" && \
+       curl -fsSL -k "${base_url}/sitemap.xml" 2>/dev/null | grep -q "https://nagaldhamfarm.shop"; then
+      log "Health check PASSED (image tag: ${tag}, sitemap verified)"
       return 0
     fi
     sleep "$HEALTH_INTERVAL"
@@ -123,21 +127,26 @@ start_stack() {
   cd "$PROJECT_DIR"
   update_env_tag "$tag"
 
-  # Ensure public directory and sitemap.xml have write permissions for web server / php container
-  log "Setting write permissions for public directory and sitemap..."
+  # Ensure public directory has write permissions and remove any stale sitemap.xml
+  log "Setting write permissions for public directory..."
   mkdir -p "${PROJECT_DIR}/public"
   chmod 777 "${PROJECT_DIR}/public" 2>/dev/null || true
-  touch "${PROJECT_DIR}/public/sitemap.xml" 2>/dev/null || true
-  chmod 666 "${PROJECT_DIR}/public/sitemap.xml" 2>/dev/null || true
+  rm -f "${PROJECT_DIR}/public/sitemap.xml" 2>/dev/null || true
 
   "$COMPOSE_CMD" pull
   "$COMPOSE_CMD" rm -f web
   "$COMPOSE_CMD" up -d --remove-orphans
 
-  # Refresh Laravel cached config with the live server's .env file
-  log "Refreshing Laravel config cache with server .env..."
+  # Refresh Laravel cached config and routes with the live server's .env file
+  log "Refreshing Laravel config and route caches with server .env..."
   "$COMPOSE_CMD" exec -T app php artisan config:clear || true
   "$COMPOSE_CMD" exec -T app php artisan config:cache || true
+  "$COMPOSE_CMD" exec -T app php artisan route:clear || true
+  "$COMPOSE_CMD" exec -T app php artisan route:cache || true
+
+  # Generate production sitemap.xml with live domain
+  log "Generating production sitemap.xml..."
+  "$COMPOSE_CMD" exec -T app php artisan sitemap:generate || true
 }
 
 rollback_to() {

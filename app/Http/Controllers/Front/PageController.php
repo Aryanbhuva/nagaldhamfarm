@@ -94,6 +94,12 @@ class PageController extends Controller
         return view('front.product', compact('data', 'categories', 'allProducts'));
     }
 
+    public function sitemapXml()
+    {
+        $xml = $this->generateSitemapXml();
+        return response($xml, 200)->header('Content-Type', 'text/xml');
+    }
+
     public function generateSitemap()
     {
         $counts = $this->generateSitemapFile();

@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('sitemap:generate', function () {
+    $controller = new \App\Http\Controllers\Front\PageController();
+    $result = $controller->generateSitemapFile();
+    $this->info("Sitemap generated with {$result['total_count']} URLs.");
+})->purpose('Generate production sitemap.xml in public folder');

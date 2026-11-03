@@ -17,4 +17,5 @@ use App\Http\Controllers\Front\PageController;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/products', [PageController::class, 'product'])->name('product');
 
+Route::get('/sitemap.xml', [PageController::class, 'sitemapXml'])->name('sitemap.xml');
 Route::get('/sitemap', [PageController::class, 'generateSitemap'])->name('sitemap');

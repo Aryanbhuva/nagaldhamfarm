@@ -14,7 +14,18 @@ trait SitemapTrait
      */
     public function getSitemapUrls(): array
     {
-        $baseUrl = rtrim(config('app.url') ?: env('APP_URL'), '/');
+        if (app()->environment('local')) {
+            $baseUrl = rtrim(config('app.url') ?: (request() ? request()->getSchemeAndHttpHost() : 'http://localhost:8085'), '/');
+        } elseif (request() && request()->getHost() && !in_array(request()->getHost(), ['localhost', '127.0.0.1'])) {
+            $baseUrl = rtrim(request()->getSchemeAndHttpHost(), '/');
+        } elseif (config('app.url') && !str_contains(config('app.url'), 'localhost') && !str_contains(config('app.url'), '127.0.0.1')) {
+            $baseUrl = rtrim(config('app.url'), '/');
+        } elseif (env('APP_URL') && !str_contains(env('APP_URL'), 'localhost') && !str_contains(env('APP_URL'), '127.0.0.1')) {
+            $baseUrl = rtrim(env('APP_URL'), '/');
+        } else {
+            $baseUrl = 'https://nagaldhamfarm.shop';
+        }
+
         $now     = now()->toAtomString();
 
         return [
